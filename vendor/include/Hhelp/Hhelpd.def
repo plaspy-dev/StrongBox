@@ -1,0 +1,6 @@
+; Hhelp.def : Declares the module parameters for the DLL.
+
+LIBRARY      "Hhelpd"
+
+EXPORTS
+    ; Explicit exports can go here

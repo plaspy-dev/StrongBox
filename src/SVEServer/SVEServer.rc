@@ -1,0 +1,232 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Spanish (Colombia) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ESO)
+#ifdef _WIN32
+LANGUAGE LANG_SPANISH, SUBLANG_SPANISH_COLOMBIA
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ESO)\r\n"
+    "LANGUAGE 10, 9\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\SVEServer.rc2""  // Recursos editados que no son de Microsoft Visual C++\r\n"
+    "#include ""afxres.rc""     // Componentes estándar\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\SVEServer.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 235, 55
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Acerca de SVEServer"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "SDGFinger Servidor versión 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2006",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "Aceptar",IDOK,178,7,50,16,WS_GROUP
+END
+
+IDD_SVESERVER_DIALOG DIALOGEX 0, 0, 320, 110
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "SDGFinger Servidor"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Aceptar",IDOK,263,7,50,16
+    PUSHBUTTON      "Cancelar",IDCANCEL,263,25,50,16
+    GROUPBOX        "Base de datos",IDC_STATIC,7,7,237,80
+    LTEXT           "Servidor",IDC_STATIC,17,20,28,8
+    LTEXT           "Base de datos",IDC_STATIC,17,39,46,8
+    LTEXT           "Puerto",IDC_STATIC,152,18,22,8
+    LTEXT           "Usuario",IDC_STATIC,19,58,25,8
+    LTEXT           "Contraseña",IDC_STATIC,117,61,38,8
+    LTEXT           "",IDC_SESTADO,12,90,297,8
+    EDITTEXT        IDC_ESERVIDOR,57,17,88,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EBDATOS,70,34,88,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EPUERTO,185,15,51,14,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EUSUARIO,48,57,61,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ECONTRASENA,162,58,61,14,ES_PASSWORD | ES_AUTOHSCROLL
+    LTEXT           "",IDC_SHUELLA,253,46,60,38
+END
+
+IDD_DLICENCIA DIALOGEX 0, 0, 234, 121
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Licencia"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_ESERIAL,49,75,178,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "Aceptar",IDOK,60,100,50,14
+    PUSHBUTTON      "Cancelar",IDCANCEL,116,100,50,14
+    EDITTEXT        IDC_ESEMILLA,49,55,178,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "Semilla",IDC_STATIC,12,58,22,8
+    LTEXT           "Serial",IDC_STATIC,12,77,18,8
+    CTEXT           "Bienvenido a SDGFinger control de acceso.\nA continuación ingrese el número de serial del producto\n si no conoce este número consulte a su proveedor.",IDC_STATIC,7,11,220,31
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "0c0a04e4"
+        BEGIN
+            VALUE "CompanyName", "SDG"
+            VALUE "FileDescription", "Servidor del Sistema de control de acceso"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "SDGFingerServidor.exe"
+            VALUE "LegalCopyright", "SDG(c).  Reservados todos los derechos."
+            VALUE "OriginalFilename", "SDGFingerServidor.exe"
+            VALUE "ProductName", "SDGFingerCA (Sistema de control de acceso)"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0xc0a, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_SVESERVER_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 313
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 103
+    END
+
+    IDD_DLICENCIA, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 227
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 114
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "&Acerca de SDG Servidor..."
+    IDP_SOCKETS_INIT_FAILED "Error de inicialización de Windows Sockets."
+END
+
+#endif    // Spanish (Colombia) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ESO)
+LANGUAGE 10, 9
+#pragma code_page(1252)
+#include "res\SVEServer.rc2"  // Recursos editados que no son de Microsoft Visual C++
+#include "afxres.rc"     // Componentes estándar
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

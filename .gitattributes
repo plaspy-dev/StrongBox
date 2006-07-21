@@ -1,0 +1,2 @@
+# Preserve the archived bytes on checkout and export.
+* -text whitespace=cr-at-eol

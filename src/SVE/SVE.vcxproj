@@ -1,0 +1,289 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="Current">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>18.0</VCProjectVersion>
+    <ProjectGuid>{0FA4145E-441A-4A52-966B-0ADB32070CC1}</ProjectGuid>
+    <RootNamespace>SVE</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>18.0.12106.202</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>SDGFingerSB</TargetName>
+    <OutDir>$(ProjectDir)..\..\bin\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\obj\$(ProjectName)\$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetName>SDGFingerSB</TargetName>
+    <OutDir>$(ProjectDir)..\..\bin\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\obj\$(ProjectName)\$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\vendor\include\;$(ProjectDir)..\..\vendor\include\LAppc;$(GrFingerSdkDir);$(MySqlSdkDir);$(MySqlSdkDir)\include;$(ThemeSdkDir);$(ProjectDir)..\..\vendor\include\JPrint;$(ProjectDir)..\..\vendor\include\Componentes\res;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WINVER=0x0601;_WIN32_WINNT=0x0601;_QWORD_DEFINED;TMSCHEMA_H;WIN32;_WINDOWS;_DEBUG;__COMPONENTES_EXPORT__=__declspec(dllimport);__IOFILE_EXPORT__=__declspec(dllimport);__LAPPC_EXPORT__=__declspec(dllimport);__JPRINT_EXPORT__=__declspec(dllimport);__CONECTOR_EXPORT___=__declspec(dllimport);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ConformanceMode>false</ConformanceMode>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/Zc:forScope- /wd4430 %(AdditionalOptions)</AdditionalOptions>
+      <ForcedIncludeFiles>stdafx.h;$(ProjectDir)..\shared\definiciones.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <DelayLoadDLLs>GrFinger.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
+      <AdditionalDependencies>delayimp.lib;dbghelp.lib;GrFinger.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)SDGFingerSB.exe</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>$(OutDir);$(MySqlSdkDir);$(GrFingerSdkDir);$(InpOut32SdkDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\vendor\include\;$(ProjectDir)..\..\vendor\include\LAppc;$(GrFingerSdkDir);$(MySqlSdkDir);$(MySqlSdkDir)\include;$(ThemeSdkDir);$(ProjectDir)..\..\vendor\include\JPrint;$(ProjectDir)..\..\vendor\include\Componentes\res;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WINVER=0x0601;_WIN32_WINNT=0x0601;_QWORD_DEFINED;TMSCHEMA_H;WIN32;_WINDOWS;NDEBUG;__COMPONENTES_EXPORT__=__declspec(dllimport);__IOFILE_EXPORT__=__declspec(dllimport);__LAPPC_EXPORT__=__declspec(dllimport);__JPRINT_EXPORT__=__declspec(dllimport);__CONECTOR_EXPORT___=__declspec(dllimport);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ConformanceMode>false</ConformanceMode>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/Zc:forScope- /wd4430 %(AdditionalOptions)</AdditionalOptions>
+      <ForcedIncludeFiles>stdafx.h;$(ProjectDir)..\shared\definiciones.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <DelayLoadDLLs>GrFinger.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
+      <AdditionalDependencies>delayimp.lib;dbghelp.lib;GrFinger.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)SDGFingerSB.exe</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>$(OutDir);$(MySqlSdkDir);$(GrFingerSdkDir);$(InpOut32SdkDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\errorreport\ExceptionAttacher.cpp" />
+    <ClCompile Include="..\errorreport\ExceptionHandler.cpp" />
+    <ClCompile Include="..\errorreport\GetWinVer.cpp" />
+    <ClCompile Include="..\errorreport\MiniVersion.cpp" />
+    <ClCompile Include="..\sveclient\TrialInfo.cpp" />
+    <ClCompile Include="administrador\ArrayUsuarios.cpp" />
+    <ClCompile Include="administrador\DlgEditar.cpp" />
+    <ClCompile Include="administrador\DlgPasswd.cpp" />
+    <ClCompile Include="administrador\FormUser.cpp" />
+    <ClCompile Include="ChildFrm.cpp" />
+    <ClCompile Include="DlgBases.cpp" />
+    <ClCompile Include="DlgConfigurar.cpp" />
+    <ClCompile Include="DlgConfirmar.cpp" />
+    <ClCompile Include="DlgIngreso.cpp" />
+    <ClCompile Include="FingerBitmap.cpp" />
+    <ClCompile Include="FingerPrint.cpp" />
+    <ClCompile Include="GuardarDlg.cpp" />
+    <ClCompile Include="InformesView.cpp" />
+    <ClCompile Include="LicenceDlg.cpp" />
+    <ClCompile Include="logomdi\BitmapPicture.cpp"><ExcludedFromBuild>true</ExcludedFromBuild></ClCompile>
+    <ClCompile Include="logomdi\logomdi.cpp"><ExcludedFromBuild>true</ExcludedFromBuild></ClCompile>
+    <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="MDITabs\LBSpinButtonCtrl.cpp"><ExcludedFromBuild>true</ExcludedFromBuild></ClCompile>
+    <ClCompile Include="MDITabs\MDITabs.cpp"><ExcludedFromBuild>true</ExcludedFromBuild></ClCompile>
+    <ClCompile Include="MiscelaneosEx.cpp" />
+    <ClCompile Include="mybar.cpp" />
+    <ClCompile Include="MyTime.cpp" />
+    <ClCompile Include="PrintSVE.cpp" />
+    <ClCompile Include="PropiedadesBar.cpp" />
+    <ClCompile Include="Showpic.cpp" />
+    <ClCompile Include="SplashScreenEx.cpp"><ExcludedFromBuild>true</ExcludedFromBuild></ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="SVE.cpp" />
+    <ClCompile Include="SVEDoc.cpp" />
+    <ClCompile Include="SVEView.cpp" />
+    <ClCompile Include="XStatusBar.cpp"><ExcludedFromBuild>true</ExcludedFromBuild></ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\errorreport\CrashFileNames.h" />
+    <ClInclude Include="..\errorreport\Dbghelp.h" />
+    <ClInclude Include="..\errorreport\ExceptionHandler.h" />
+    <ClInclude Include="..\errorreport\FunctionStackTrace.h" />
+    <ClInclude Include="..\errorreport\GetWinVer.h" />
+    <ClInclude Include="..\errorreport\MiniVersion.h" />
+    <ClInclude Include="..\sveclient\TrialInfo.h" />
+    <ClInclude Include="administrador\ArrayUsuarios.h" />
+    <ClInclude Include="administrador\DlgEditar.h" />
+    <ClInclude Include="administrador\DlgPasswd.h" />
+    <ClInclude Include="administrador\FormUser.h" />
+    <ClInclude Include="ChildFrm.h" />
+    <ClInclude Include="DlgBases.h" />
+    <ClInclude Include="DlgConfigurar.h" />
+    <ClInclude Include="DlgConfirmar.h" />
+    <ClInclude Include="DlgIngreso.h" />
+    <ClInclude Include="FingerBitmap.h" />
+    <ClInclude Include="FingerPrint.h" />
+    <ClInclude Include="GuardarDlg.h" />
+    <ClInclude Include="InformesView.h" />
+    <ClInclude Include="LicenceDlg.h" />
+    <ClInclude Include="logomdi\BitmapPicture.h" />
+    <ClInclude Include="logomdi\logomdi.h" />
+    <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MDITabs\LBSpinButtonCtrl.h" />
+    <ClInclude Include="MDITabs\MDITabs.h" />
+    <ClInclude Include="MiscelaneosEx.h" />
+    <ClInclude Include="mybar.h" />
+    <ClInclude Include="MyTime.h" />
+    <ClInclude Include="PrintSVE.h" />
+    <ClInclude Include="PropiedadesBar.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="Showpic.h" />
+    <ClInclude Include="SplashScreenEx.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SVE.h" />
+    <ClInclude Include="SVEDoc.h" />
+    <ClInclude Include="SVEView.h" />
+    <ClInclude Include="WndUtil.h" />
+    <ClInclude Include="XStatusBar.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Dibujo.bmp" />
+    <Image Include="res\final.bmp" />
+    <Image Include="res\guidockbar.bmp" />
+    <Image Include="res\loading\loading0001.bmp" />
+    <Image Include="res\loading\loading0002.bmp" />
+    <Image Include="res\loading\loading0003.bmp" />
+    <Image Include="res\loading\loading0004.bmp" />
+    <Image Include="res\loading\loading0005.bmp" />
+    <Image Include="res\loading\loading0006.bmp" />
+    <Image Include="res\loading\loading0007.bmp" />
+    <Image Include="res\loading\loading0008.bmp" />
+    <Image Include="res\loading\loading0009.bmp" />
+    <Image Include="res\loading\loading0010.bmp" />
+    <Image Include="res\loading\loading0011.bmp" />
+    <Image Include="res\SVE.ico" />
+    <Image Include="res\SVEDoc.ico" />
+    <Image Include="res\Toolbar.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="res\SVE.manifest">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SVE.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\SVE.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    </ItemGroup>
+  <ItemGroup>
+    </ItemGroup>
+  <ItemGroup>
+    </ItemGroup>
+  <ItemGroup>
+    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\vendor\include\IOFile\IOFile.vcxproj">
+      <Project>{DF67D1C5-251E-428C-BF56-6CA742FCA08D}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\vendor\include\Conector\Conector.vcxproj">
+      <Project>{0B19BADA-CF07-45DD-ADC9-3B6920174E19}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\vendor\include\Componentes\Componentes.vcxproj">
+      <Project>{04F955E5-F846-431D-9CEC-D35BA071A51C}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\vendor\include\LAppc\LAppc.vcxproj">
+      <Project>{FA2E85EF-3871-4C5D-815E-5BBDCCDE7EA3}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\vendor\include\JPrint\JPrint.vcxproj">
+      <Project>{23FD442F-524C-42C8-BF28-B7835BD47309}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\vendor\include\JLang\JLang.vcxproj">
+      <Project>{63916F02-80DE-4617-94DA-E266148F85C1}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="SVE.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
