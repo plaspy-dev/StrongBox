@@ -117,6 +117,8 @@ Select July 21, 2006 to find the fictional access from the example schema.
 | `vendor/` | Recovered libraries and their converted projects |
 | `demo/` | Synthetic database schema and connection example |
 
+The three applications share the DLLs built by this solution. Keep them together when running the programs.
+
 ### Contributing
 
 This repository is kept for historical reference. This trial is local.
@@ -250,6 +252,8 @@ Selecciona el 21 de julio de 2006 para consultar el acceso ficticio del esquema 
 | `src/sveclient/` | Ventana del punto de acceso e integración opcional con LCD |
 | `vendor/` | Bibliotecas recuperadas y sus proyectos convertidos |
 | `demo/` | Esquema ficticio y ejemplo de conexión |
+
+Las tres aplicaciones comparten las DLL generadas por la solución. Mantenlas juntas al ejecutar los programas.
 
 ### Contribuir
 
