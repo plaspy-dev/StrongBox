@@ -72,8 +72,8 @@ machine that does not already have it.
    database, then enter the account in **Ingreso**. For the historical login,
    the schema must contain a `shared` record for that account with `nReservado = 2`
    and `szReservado` different from `-1`. Use **Informes** to query access records
-   for the selected dates, with an optional document number. The sample row
-   is dated July 21, 2006.
+   for the selected dates, with an optional document number. Use the date
+   described in the sample report below.
 3. Open `SDGFingerCliente.exe --without-reader` to check the checkpoint dialog
    without starting fingerprint capture. Use **Salir** from the tray menu to
    exit. To read fingerprints, install a licensed x86 GrFinger 4.2 runtime
@@ -105,7 +105,7 @@ in a disposable instance bound to loopback. [MySQL 8.4 authentication documentat
 
 The Win32 test opens the administrator and checkpoint client, checks the administrator’s report with a fictional access record, and verifies that the server can read an empty MySQL queue. The result is partial. Live fingerprint enrollment and matching require a compatible reader, and physical output requires a parallel-port LCD.
 
-Select July 21, 2006 to find the fictional access from the example schema.
+The example schema starts with a fictional access dated July 21, 2006. The verification commands below move it to the day of the test. In the screenshot and GIF, both date fields are set to November 18, 2026, the date of the recorded demonstration.
 
 ### Project structure
 
@@ -116,6 +116,7 @@ Select July 21, 2006 to find the fictional access from the example schema.
 | `src/sveclient/` | Checkpoint dialog and optional LCD integration |
 | `vendor/` | Recovered libraries and their converted projects |
 | `demo/` | Synthetic database schema and connection example |
+| `docs/` | Verification media in `docs/media/` |
 
 The three applications share the DLLs built by this solution. Keep them together when running the programs.
 
@@ -130,6 +131,80 @@ Build logs for this trial accompany the local audit. For questions about the arc
 ### History
 
 The archived history records the July 2006 snapshot and two later documentation commits. The 2026 local reconstruction adds the converted projects and the source from the later `libreria1` archive for this experiment.
+
+### Verification
+
+On November 25, 2026, MSBuild 18.11.1.51303 ran the Release Win32 command below
+from three separate exports on Windows 11 Pro build 26300 with MSVC
+14.51.36231 x86. The local test used `53225b43494c` with the fictional debug preset and trial date. The suite built all three applications and seven libraries. The local
+test opened and closed the administration tool and the checkpoint client and
+signed in to MySQL 8.4.13 using a fictional account. The **Informes** view
+displayed one fictional access record. The server displayed its main dialog
+without an activation prompt and polled the empty lookup queue in MySQL. Live
+fingerprint enrollment, matching and the physical LCD remain unverified.
+
+```bat
+MSBuild.exe StrongBox.sln /t:Build /m:4 /p:Configuration=Release /p:Platform=Win32 /p:PlatformToolset=v145 /p:PreferredToolArchitecture=x64 /nologo /v:minimal
+bin\Release\SDGFingerSB.exe --without-reader
+bin\Release\SDGFingerCliente.exe --without-reader
+bin\Release\SDGFingerServidor.exe --without-reader
+```
+
+The administrator displayed one result and exited with code 0. The checkpoint
+client displayed its default settings. The test sent `WM_COMMAND` ID `2003` to
+close the client and recorded exit code `0x000007d3`. The server opened its connection window, read the empty queue, and exited with code `2` (`IDCANCEL`). The test loaded
+the demo schema into MySQL on `127.0.0.1` and changed the synthetic access to
+the local verification date (November 25, 2026) to match the default report range. There were
+no active demo-user MySQL sessions after the administrator exited.
+
+The following PowerShell 7 commands reproduce the demo database on a fixed
+loopback port. Open the administrator with the example connection settings and
+enter the `strongbox_demo` user and the generated `$demoPassword`. The second
+read-only account is the encoded user name the administration tool tries first.
+
+```powershell
+$demoContainer = 'strongbox-demo'
+$env:MYSQL_ROOT_PASSWORD = [guid]::NewGuid().ToString('N')
+$env:MYSQL_PWD = $env:MYSQL_ROOT_PASSWORD
+$demoPassword = [guid]::NewGuid().ToString('N')
+docker run -d --rm --name $demoContainer -p 127.0.0.1:33306:3306 -e MYSQL_ROOT_PASSWORD mysql@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902 --mysql-native-password=ON
+
+# Run the following after MySQL reports it is ready for TCP connections.
+Get-Content -Raw .\demo\schema-demo.sql | docker exec -i -e MYSQL_PWD $demoContainer mysql -uroot -N -B
+$nameBytes = [Text.Encoding]::UTF8.GetBytes('strongbox_demo')
+$legacyAccount = [Convert]::ToHexString([Security.Cryptography.MD5]::HashData($nameBytes)).ToLowerInvariant().Substring(0, 15)
+@"
+CREATE USER 'strongbox_demo'@'%' IDENTIFIED WITH mysql_native_password BY '$demoPassword';
+CREATE USER '$legacyAccount'@'%' IDENTIFIED WITH mysql_native_password BY '$demoPassword';
+GRANT SELECT ON strongbox_demo.* TO 'strongbox_demo'@'%';
+GRANT SELECT ON strongbox_demo.* TO '$legacyAccount'@'%';
+UPDATE strongbox_demo.sucesos SET fecha=CURDATE() + INTERVAL 8 HOUR, salida=CURDATE() + INTERVAL 9 HOUR WHERE id=9001;
+"@ | docker exec -i -e MYSQL_PWD $demoContainer mysql -uroot -N -B
+```
+
+
+After testing, stop the isolated container with `docker stop $demoContainer`
+and clear the temporary password variables from the shell.
+
+#### Screenshots
+
+The media below show the tested application windows and report filter. They were captured with fictional data from the November 18 demonstration build. The Release Win32 records refer to the November 25 verification.
+
+![Access report showing a fictional record](docs/media/access-report.png)
+
+The report shows Demo User (document `-9001`) on November 18, 2026.
+
+![Checkpoint client without a reader](docs/media/client-window.png)
+
+The checkpoint client displays its database settings and on-screen status.
+
+![Filtering the access report by document](docs/media/filter-access-report.gif)
+
+Enter a fictional document with no access records, then clear it to restore the result.
+
+![Server connection window without an activation prompt](docs/media/server-window.png)
+
+The server opens directly into its database settings and queue status.
 
 ### License
 
@@ -207,7 +282,7 @@ el runtime de Microsoft Visual C++ x86 en los equipos que no lo tengan.
    introduce la cuenta en **Ingreso**. El inicio de sesión histórico requiere un
    registro de esa cuenta en `shared` con `nReservado = 2` y `szReservado` distinto
    de `-1`. En **Informes** puedes consultar accesos por intervalo de fechas y,
-   si corresponde, por documento. El registro de ejemplo tiene fecha del 21 de julio de 2006.
+   si corresponde, por documento. Usa la fecha que se indica en el ejemplo de informe.
 3. Abre `SDGFingerCliente.exe --without-reader` para comprobar la ventana del
    punto de acceso sin iniciar la captura de huellas. Usa **Salir** en el menú
    de la bandeja para cerrar. Para leer huellas, instala el runtime x86 de
@@ -241,7 +316,7 @@ instancia temporal accesible desde el propio equipo. [Documentación de autentic
 
 La prueba Win32 abre el administrador y el cliente, comprueba un acceso ficticio en Informes y verifica que el servidor puede consultar la cola vacía de MySQL. El resultado es parcial. Para registrar y cotejar huellas hace falta un lector compatible. Para verificar la salida física hace falta un LCD de puerto paralelo.
 
-Selecciona el 21 de julio de 2006 para consultar el acceso ficticio del esquema de ejemplo.
+El esquema de ejemplo carga un acceso ficticio del 21 de julio de 2006. Los comandos de verificación de abajo lo cambian al día de la prueba. En la captura y el GIF, ambos campos de fecha del informe muestran el 18 de noviembre de 2026, la fecha de la demostración grabada.
 
 ### Estructura del proyecto
 
@@ -252,6 +327,7 @@ Selecciona el 21 de julio de 2006 para consultar el acceso ficticio del esquema 
 | `src/sveclient/` | Ventana del punto de acceso e integración opcional con LCD |
 | `vendor/` | Bibliotecas recuperadas y sus proyectos convertidos |
 | `demo/` | Esquema ficticio y ejemplo de conexión |
+| `docs/` | Capturas y grabación de la prueba en `docs/media/` |
 
 Las tres aplicaciones comparten las DLL generadas por la solución. Mantenlas juntas al ejecutar los programas.
 
@@ -266,6 +342,81 @@ Los registros de compilación de esta prueba acompañan al arbitraje local. Para
 ### Historia
 
 El historial archivado conserva la versión de julio de 2006 y dos commits de documentación posteriores. Durante la reconstrucción local de 2026 se añadieron los proyectos convertidos y los fuentes del respaldo posterior `libreria1` para este ensayo.
+
+### Verificación
+
+El 25 de noviembre de 2026, MSBuild 18.11.1.51303 ejecutó el comando Release
+Win32 de abajo en tres copias independientes, en Windows 11 Pro, compilación
+26300, con MSVC 14.51.36231 x86. La prueba local usó `53225b43494c` con la contraseña de depuración y la fecha de prueba ficticias. La solución generó tres aplicaciones y siete
+bibliotecas. La prueba local abrió y cerró el administrador y el cliente e inició
+sesión en MySQL 8.4.13 con una cuenta ficticia. **Informes** mostró un acceso
+ficticio. El servidor abrió su ventana principal sin activación y consultó la
+cola vacía en MySQL. Quedan pendientes el registro y la comparación de huellas
+y la salida en un LCD de puerto paralelo.
+
+```bat
+MSBuild.exe StrongBox.sln /t:Build /m:4 /p:Configuration=Release /p:Platform=Win32 /p:PlatformToolset=v145 /p:PreferredToolArchitecture=x64 /nologo /v:minimal
+bin\Release\SDGFingerSB.exe --without-reader
+bin\Release\SDGFingerCliente.exe --without-reader
+bin\Release\SDGFingerServidor.exe --without-reader
+```
+
+El administrador mostró un resultado y cerró con código 0. El cliente mostró
+sus ajustes iniciales. La prueba cerró el cliente con `WM_COMMAND`, ID `2003`,
+y registró el código de salida `0x000007d3`. El servidor abrió su ventana de conexión, leyó la cola vacía y cerró con código `2` (`IDCANCEL`). La prueba
+cargó el esquema de ejemplo en MySQL en `127.0.0.1` y cambió la fecha del acceso
+ficticio al 25 de noviembre de 2026, fecha de la verificación local, para usar el intervalo
+predeterminado del informe. Tras cerrar el administrador, la cuenta ficticia
+quedó sin sesiones activas en MySQL.
+
+Estos comandos de PowerShell 7 reproducen la base de ejemplo en un puerto
+local fijo. Abre el administrador con la configuración de ejemplo e introduce
+el usuario `strongbox_demo` y la contraseña generada en `$demoPassword`. La
+segunda cuenta de solo lectura es el nombre codificado que el administrador prueba primero.
+
+```powershell
+$demoContainer = 'strongbox-demo'
+$env:MYSQL_ROOT_PASSWORD = [guid]::NewGuid().ToString('N')
+$env:MYSQL_PWD = $env:MYSQL_ROOT_PASSWORD
+$demoPassword = [guid]::NewGuid().ToString('N')
+docker run -d --rm --name $demoContainer -p 127.0.0.1:33306:3306 -e MYSQL_ROOT_PASSWORD mysql@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902 --mysql-native-password=ON
+
+# Continúa cuando MySQL acepte conexiones TCP.
+Get-Content -Raw .\demo\schema-demo.sql | docker exec -i -e MYSQL_PWD $demoContainer mysql -uroot -N -B
+$nameBytes = [Text.Encoding]::UTF8.GetBytes('strongbox_demo')
+$legacyAccount = [Convert]::ToHexString([Security.Cryptography.MD5]::HashData($nameBytes)).ToLowerInvariant().Substring(0, 15)
+@"
+CREATE USER 'strongbox_demo'@'%' IDENTIFIED WITH mysql_native_password BY '$demoPassword';
+CREATE USER '$legacyAccount'@'%' IDENTIFIED WITH mysql_native_password BY '$demoPassword';
+GRANT SELECT ON strongbox_demo.* TO 'strongbox_demo'@'%';
+GRANT SELECT ON strongbox_demo.* TO '$legacyAccount'@'%';
+UPDATE strongbox_demo.sucesos SET fecha=CURDATE() + INTERVAL 8 HOUR, salida=CURDATE() + INTERVAL 9 HOUR WHERE id=9001;
+"@ | docker exec -i -e MYSQL_PWD $demoContainer mysql -uroot -N -B
+```
+
+
+Al terminar, detén el contenedor aislado con `docker stop $demoContainer`
+y borra las variables de contraseña temporales de la sesión de PowerShell.
+
+#### Capturas
+
+Las imágenes muestran las ventanas y el filtro de informes que se probaron. Se capturaron con datos ficticios en la compilación de demostración del 18 de noviembre. Los registros de Release Win32 corresponden a la verificación del 25 de noviembre.
+
+![Informe de accesos con un registro ficticio](docs/media/access-report.png)
+
+El informe muestra a Demo User (documento `-9001`) el 18 de noviembre de 2026.
+
+![Cliente de punto de acceso sin lector](docs/media/client-window.png)
+
+El cliente muestra su configuración de base de datos y el estado en pantalla.
+
+![Filtro del informe de accesos por documento](docs/media/filter-access-report.gif)
+
+Introduce un documento ficticio sin accesos y borra el filtro para recuperar el resultado.
+
+![Ventana de conexión del servidor sin solicitud de activación](docs/media/server-window.png)
+
+El servidor abre su configuración de base de datos y muestra el estado de la cola.
 
 ### Licencia
 
